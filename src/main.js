@@ -53,10 +53,11 @@ function analyzeSalesData(data, options) {
   }
 
   // Проверка опций
-  const {
-    calculateRevenue = calculateSimpleRevenue,
-    calculateBonus = calculateBonusByProfit
-  } = options || {};
+  if (!options || typeof options !== 'object') {
+    throw new Error('Опции должны быть объектом');
+  }
+
+  const { calculateRevenue, calculateBonus } = options;
 
   if (typeof calculateRevenue !== 'function') {
     throw new Error('Опция calculateRevenue должна быть функцией');
